@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>twidder</title>
+    <link href="welcome.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+    <div id="welcomearea">
+        <div id="leftside">
+            <img src="twidder.png" alt="image could not load">
+        </div>
+    
+        <div id="rightside">
+
+            <!--Login section-->
+            <div id = "login">
+                <form id = "loginform" method = "post">
+                    <div class = "formrow">
+                        <label for = "email">Email: </label>
+                        <input type = "email" id = "email" placeholder = "Enter your email adress" name = "email" required>
+                    </div>
+
+                    <div class = "formrow">
+                        <label for = "password">Password: </label>
+                        <input type = "password" id = "password" placeholder = "Enter your password" name = "password" required>
+                    </div>
+
+                    <input type = "submit" value = "Login">
+                </form>    
+            </div>
+            
+            <!--Signup section-->
+            <div id = "signup">
+                <form id = "signupform" method = "post">
+                    <div class = "formrow"> 
+                        <label for = "email">Email:</label>
+                        <input type = "email" id = "email" name = "email" placeholder = "Username" required>
+                    </div>
+
+                    <div class = "formrow">
+                        <label for = "password">Password:</label>
+                        <input type = "password" id = "password" name = "password" required>
+                    </div>
+
+                    <div class = "formrow">
+                        <label for = "repeatpassword">Repeat&nbsp;password:</label>
+                        <input type = "password" name = "repeatpassword" id = "repeatpassword" required>
+                    </div>
+
+                    <div class = "formrow">
+                        <label for = "firstname">First&nbsp;name: </label>
+                        <input type = "text" id = "firstname" name = "firstname" required>
+                    </div>
+
+                    <div class = "formrow">
+                        <label for = "familyname">Family&nbsp;name:</label>
+                        <input type = "text" name = "familyname" id = "familyname" placeholder = "Enter your last name" required>
+                    </div>
+
+                  
+                    <div class = "formrow">
+                        <label for = "gender">Gender:</label>
+                        <select id = "gender" name = "gender">
+                            <option value = "Male">Male</option>
+                            <option value = "female">Female</option>
+                            <option value = "Dolphin">Dolphin</option>
+                        </select>
+                    </div>
+
+                    <div class = "formrow">
+                        <label for = "city">City:</label>
+                        <input type = "text" name = "city" id = "city" required>
+                    </div>
+
+                    <div class = "formrow">
+                        <label for = "country">Country:</label>
+                        <input type = "text" id = "country" name = "country" required>
+                    </div>
+
+                    <input type = "submit" value = "Signup">
+                </form>
+
+
+
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
