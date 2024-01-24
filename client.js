@@ -1,8 +1,8 @@
 displayview = function() {
-    var welcomeview = document.getElementById("welcomeview")
-    var profileview = document.getElementById("profileview")
-    var loggedin = false;
-    var contentdisplayer = document.getElementById("content")
+    let welcomeview = document.getElementById("welcomeview")
+    let profileview = document.getElementById("profileview")
+    let loggedin = false;
+    let contentdisplayer = document.getElementById("content")
 
     console.log(welcomeview);
 
