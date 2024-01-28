@@ -37,7 +37,7 @@ function logincheck() {
         return false;
     }
     else {
-        em.innerHTML = "Enter a valid email adress";
+        em.innerHTML = "Enter a valid email address";
         return false;
     }
 }
@@ -50,6 +50,12 @@ function signupcheck() {
     let pw = document.getElementById("signuppassword").value;
     let em = document.getElementById("signupem");
     let repeatpw = document.getElementById("repeatpassword").value;
+    let firstname = document.getElementById("firstname").value;
+    let familyname = document.getElementById("familyname").value;
+    let gender = document.getElementById("gender").value;
+    let city = document.getElementById("city").value;
+    let country = document.getElementById("country").value;
+    
 
     console.log("Email:", email);
     console.log("Password:", pw);
@@ -77,6 +83,24 @@ function signupcheck() {
     }
 
     // Everything is fine
-    em.innerHTML = "SKÅL IT FUCKING WORKS FINALLY";
-    return false; // false for now
+    // Lets create the object
+    const dataObject = {
+        email: email,
+        password: pw,
+        firstname: firstname,
+        familyname: familyname,
+        gender: gender,
+        city: city,
+        country: country
+    };
+
+    const signupresponse = serverstub.signUp(dataObject);
+
+    if (!signupresponse.success) {
+        em.innerHTML = signupresponse.message;
+    }
+    else {
+        em.innerHTML = signupresponse.message;
+    }
+    return false;
 }    
