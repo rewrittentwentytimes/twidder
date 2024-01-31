@@ -1,18 +1,16 @@
 displayview = function() {
-    let welcomeview = document.getElementById("welcomeview")
-    let profileview = document.getElementById("profileview")
-    let loggedin = false;
-    let contentdisplayer = document.getElementById("content")
-
-    console.log(welcomeview);
-
-    if (!loggedin) {
-        contentdisplayer.innerHTML = welcomeview.innerHTML;
-    }
-    else {
+    let welcomeview = document.getElementById("welcomeview");
+    let profileview = document.getElementById("profileview");
+    let contentdisplayer = document.getElementById("content");
+    const savedtoken = localStorage.getItem("token");
+    
+    if (savedtoken) {
         contentdisplayer.innerHTML = profileview.innerHTML;
     }
 
+    else {
+        contentdisplayer.innerHTML = welcomeview.innerHTML;
+    }    
 };
 
 window.onload = function() {
@@ -33,9 +31,21 @@ function logincheck() {
     let em = document.getElementById("loginem");
 
     if (emailcheck(email)) {
-        em.innerHTML = "skål it works";
-        return false;
+        
+        const signinfeedback = serverstub.signIn(email, pw);
+
+        if (signinfeedback.success) {
+
+            localStorage.setItem("token", signinfeedback.data);
+            displayview();
+            return false;
+        }
+        else {
+            em.innerHTML = signinfeedback.message;
+            return false;
+        }
     }
+
     else {
         em.innerHTML = "Enter a valid email address";
         return false;
@@ -43,8 +53,6 @@ function logincheck() {
 }
 
 function signupcheck() {
-
-    console.log("Signup check function called");
 
     let email = document.getElementById("signupemail").value;
     let pw = document.getElementById("signuppassword").value;
@@ -56,12 +64,6 @@ function signupcheck() {
     let city = document.getElementById("city").value;
     let country = document.getElementById("country").value;
     
-
-    console.log("Email:", email);
-    console.log("Password:", pw);
-    console.log("Repeat Password:", repeatpw);
-
-
     if (!emailcheck(email)) {
          em.innerHTML = "Enter a valid email adress";
          return false;
@@ -94,13 +96,13 @@ function signupcheck() {
         country: country
     };
 
-    const signupresponse = serverstub.signUp(dataObject);
+    const signupfeedback = serverstub.signUp(dataObject);
 
-    if (!signupresponse.success) {
-        em.innerHTML = signupresponse.message;
+    if (!signupfeedback.success) {
+        em.innerHTML = signupfeedback.message;
     }
     else {
-        em.innerHTML = signupresponse.message;
+        em.innerHTML = signupfeedback.message;
     }
     return false;
-}    
+}
