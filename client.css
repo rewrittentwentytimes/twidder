@@ -162,3 +162,11 @@ body {
 #changepasswordform h3 {
     text-align: center;
 }
+
+
+
+#logoutbutton {
+    display: flex;
+    margin: 0 auto;
+    margin-top: 10px;
+}

@@ -71,19 +71,15 @@ function signupcheck() {
          return false;
     }
 
-    console.log("Password:", pw);
-    console.log("Repeat Password:", repeatpw);
-
     if (pw !== repeatpw) {
-         console.log("Passwords don't match");
          em.innerHTML = "Passwords don't match";
          return false;
     }
 
-    // if (pw.length < 10) {
-    //     em.innerHTML = "Password is too short, it needs to be at least 10 characters";
-    //     return false;
-    // }
+    if (pw.length < 10) {
+        em.innerHTML = "Password is too short, it needs to be at least 10 characters";
+        return false;
+    }
 
     // Everything is fine
     // Lets create the object
@@ -131,4 +127,52 @@ function showtab(specifictab) {
         }
     }
     
+}
+
+function logout() {
+    const token = localStorage.getItem("token");
+    const serverfeedback = serverstub.signOut(token);
+    if (serverfeedback.success) {
+        localStorage.removeItem("token");
+        displayview();
+    }
+    else {
+        serverfeedback.message;
+    }
+}
+
+function changepassword() {
+    let opw = document.getElementById("oldpassword").value;
+    let npw = document.getElementById("newpassword").value;
+    let rnpw = document.getElementById("repeatnewpassword").value;
+    const token = localStorage.getItem("token");
+    let message = document.getElementById("accountmessage");
+    let serverfeedback = serverstub.changePassword(token, opw, npw);
+
+    if (npw !== rnpw) {
+        message.innerHTML = "Passwords don't match";
+        return;
+    }
+
+    if (npw.length < 10) {
+        message.innerHTML = "New password needs to be atleast 10 characters";
+        return;
+    }
+
+    message.innerHTML = serverfeedback.message;
+
+    document.getElementById("oldpassword").value = "";
+    document.getElementById("newpassword").value = "";
+    document.getElementById("repeatnewpassword").value = "";
+
+    setTimeout(function(){message.innerHTML = "";}, 5000);
+    
+
+
+
+
+
+
+
+
 }
