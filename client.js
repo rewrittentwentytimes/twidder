@@ -4,6 +4,7 @@ displayview = function() {
     let contentdisplayer = document.getElementById("content");
     const savedtoken = localStorage.getItem("token");
     
+    
     if (savedtoken) {
         contentdisplayer.innerHTML = profileview.innerHTML;
     }
@@ -105,4 +106,40 @@ function signupcheck() {
         em.innerHTML = signupfeedback.message;
     }
     return false;
+}
+
+function settab() {
+
+
+
+}
+
+function showtab(specifictab) {
+
+    let chosentab = document.getElementById(specifictab);
+    let tabs = document.querySelectorAll(".tab");
+    let tabcontents = document.querySelectorAll(".tabcontent");
+
+    for (let tab of tabs) {
+        tab.classList.remove("active");
+    }
+
+    for (let tabcontent of tabcontents) {
+
+        tabcontent.style.display = "none";
+
+    }
+    
+    if (chosentab) {
+
+        chosentab.style.display = "block";
+
+        chosentab.classList.add("active");
+
+        localStorage.setItem(chosentab, specifictab);
+    }
+
+    
+
+
 }

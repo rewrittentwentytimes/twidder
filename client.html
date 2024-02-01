@@ -103,22 +103,22 @@
     <!--profileview-->
     <script type = "text/view" id = "profileview">
         <div id = "profilearea">
-            <div id = "tabs">
-                <button class = "tab">Home</button>
-                <button class = "tab">Browse</button>
-                <button class = "tab">Account</button>
+            <div id = "tablabels">
+                <button class = "tab" onclick = "showtab('homearea')">Home</button>
+                <button class = "tab" onclick = "showtab('browsearea')">Browse</button>
+                <button class = "tab" onclick = "showtab('accountarea')">Account</button>
             </div>
 
-                <div id = "homearea" class = "panel" style = "display: block;">
+                <div id = "homearea" class = "tabcontent" style = "display: block;">
                     <p>THIS IS HOME CONTENT</p>
                 </div>
 
-                <div id = "browsearea" class = "panel">
-                    <p>THIS IS BROWSECONTENT</p>
+                <div id = "browsearea" class = "tabcontent">
+                    <p>THIS IS BROWSE CONTENT</p>
                 </div>
 
-                <div id = "accountarea" class = "panel">
-                    </p>THIS IS ACCOUNTCONTENT</p>
+                <div id = "accountarea" class = "tabcontent">
+                    </p>THIS IS ACCOUNT CONTENT</p>
                 </div>
         </div>
     </script>
