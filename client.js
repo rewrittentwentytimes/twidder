@@ -7,6 +7,7 @@ displayview = function() {
     
     if (savedtoken) {
         contentdisplayer.innerHTML = profileview.innerHTML;
+        showtab("homearea");
     }
 
     else {
@@ -79,11 +80,10 @@ function signupcheck() {
          return false;
     }
 
-    if (pw.length < 10) {
-        console.log("Password is too short");
-        em.innerHTML = "Password is too short, it needs to be at least 10 characters";
-        return false;
-    }
+    // if (pw.length < 10) {
+    //     em.innerHTML = "Password is too short, it needs to be at least 10 characters";
+    //     return false;
+    // }
 
     // Everything is fine
     // Lets create the object
@@ -108,11 +108,6 @@ function signupcheck() {
     return false;
 }
 
-function settab() {
-
-
-
-}
 
 function showtab(specifictab) {
 
@@ -120,26 +115,20 @@ function showtab(specifictab) {
     let tabs = document.querySelectorAll(".tab");
     let tabcontents = document.querySelectorAll(".tabcontent");
 
-    for (let tab of tabs) {
-        tab.classList.remove("active");
+    for (let i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove("active");
+        tabcontents[i].style.display = "none";
     }
 
-    for (let tabcontent of tabcontents) {
-
-        tabcontent.style.display = "none";
-
-    }
-    
     if (chosentab) {
-
         chosentab.style.display = "block";
-
-        chosentab.classList.add("active");
-
-        localStorage.setItem(chosentab, specifictab);
     }
 
+    for (let i = 0; i < tabcontents.length; i++) {
+        if(tabcontents[i].id === specifictab) {
+            tabs[i].classList.add("active");
+            break;
+        }
+    }
     
-
-
 }

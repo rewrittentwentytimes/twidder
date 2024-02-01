@@ -108,13 +108,57 @@ body {
     display: flex;
     background-color: pink;
  }
+    
+    
 
-.tab {
+#tablabels {
     display: flex;
     flex-direction: column;
 }
 
- .panel {
-    display: none;
- }
+.tab {
+    
+    margin-bottom: 2px;
+    background-color: white;
+    padding: 2px;
+    
+}
 
+.tab.active {
+    background-color: lightgreen;
+}
+
+.tab:hover {
+    background-color: darkgray;
+}
+
+/* Account */
+
+#accountarea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+#changepasswordform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    margin: 0 auto;
+}
+
+#changepasswordform input {
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+#accountarea h2 {
+    text-align: center;
+}
+
+#changepasswordform h3 {
+    text-align: center;
+}

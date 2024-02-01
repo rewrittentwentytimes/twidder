@@ -50,12 +50,12 @@
     
                         <div class = "formrow">
                             <label for = "password">Password:</label>
-                            <input type = "password" id = "signuppassword" name = "signuppassword" required>
+                            <input type = "password" id = "signuppassword" name = "signuppassword" required min = "10">
                         </div>
     
                         <div class = "formrow">
                             <label for = "repeatpassword">Repeat&nbsp;password:</label>
-                            <input type = "password" name = "repeatpassword" id = "repeatpassword" required>
+                            <input type = "password" name = "repeatpassword" id = "repeatpassword" required min = "10">
                         </div>
     
                         <div class = "formrow">
@@ -101,15 +101,16 @@
     </script>
 
     <!--profileview-->
+
     <script type = "text/view" id = "profileview">
         <div id = "profilearea">
             <div id = "tablabels">
                 <button class = "tab" onclick = "showtab('homearea')">Home</button>
                 <button class = "tab" onclick = "showtab('browsearea')">Browse</button>
-                <button class = "tab" onclick = "showtab('accountarea')">Account</button>
+                <button class = "tab" onclick = "showtab('accountarea')">Account</button> 
             </div>
 
-                <div id = "homearea" class = "tabcontent" style = "display: block;">
+                <div id = "homearea" class = "tabcontent">
                     <p>THIS IS HOME CONTENT</p>
                 </div>
 
@@ -118,7 +119,15 @@
                 </div>
 
                 <div id = "accountarea" class = "tabcontent">
-                    </p>THIS IS ACCOUNT CONTENT</p>
+                    <h2>Account settings</h2>
+                        <div id = "changepasswordform">
+                            <h3>Change password</h3>
+                            <input type = "password" id = "oldpassword" placeholder = "Enter your old password">
+                            <input type = "password" id = "newpassword" placeholder = "Enter your new password">
+                            <input type = "password" id = "reapeatnewpassword" placeholder = "Repeat your new password">
+                            <button onclick = "changepassword()">Change password</button>
+                            <div id = "message"></div>
+                        </div>
                 </div>
         </div>
     </script>
