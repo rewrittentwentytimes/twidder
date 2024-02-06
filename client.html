@@ -111,11 +111,34 @@
             </div>
 
                 <div id = "homearea" class = "tabcontent">
-                    <p>THIS IS HOME CONTENT</p>
+                    <div id = "userinfoandwall">
+                        <div id = "infoarea">
+                            <h2>Hey there <span id = "username"></span>!</h2>
+                            <p>Email: <span id = "useremail"></span></p>
+                            <p>Full name: <span id = "userfullname"></span></p>
+                            <p>Gender: <span id = "usergender"></span></p>
+                            <p>City: <span id = "usercity"></span></p>
+                            <p>Country: <span id = "usercountry"></span></p>
+                        </div>    
+                        
+                        <div id = "walloftextarea">
+                            <h3>Post a message here</h3>
+                            <div id = "postem" style = "color: red"></div>
+                            <textarea id = "postmessage" placeholder = "Insert message here"></textarea>
+                            <button id = "postbutton" onclick = "postmessage()">Post your message</button>
+                        
+                            <h3>Wall of text</h3>
+                            <button onclick = 'loadwalloftext()'>Refresh</button>
+                            <div id = "walloftext"></div>
+                        </div>    
+                    </div>
+
                 </div>
 
                 <div id = "browsearea" class = "tabcontent">
-                    <p>THIS IS BROWSE CONTENT</p>
+                    <input type = "text" id = "browseemail" placeholder = "Insert user email">
+                        <button onclick = "searchuser()">Search for a user</button>
+                        <div id = "browseresult"></div>
                 </div>
 
                 <div id = "accountarea" class = "tabcontent">

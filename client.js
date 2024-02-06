@@ -126,6 +126,11 @@ function showtab(specifictab) {
             break;
         }
     }
+
+    if(specifictab === "homearea") {
+        printuserinfo();
+        loadwalloftext();
+    }
     
 }
 
@@ -147,7 +152,6 @@ function changepassword() {
     let rnpw = document.getElementById("repeatnewpassword").value;
     const token = localStorage.getItem("token");
     let message = document.getElementById("accountmessage");
-    let serverfeedback = serverstub.changePassword(token, opw, npw);
 
     if (npw !== rnpw) {
         message.innerHTML = "Passwords don't match";
@@ -159,6 +163,7 @@ function changepassword() {
         return;
     }
 
+    let serverfeedback = serverstub.changePassword(token, opw, npw);
     message.innerHTML = serverfeedback.message;
 
     document.getElementById("oldpassword").value = "";
@@ -167,12 +172,83 @@ function changepassword() {
 
     setTimeout(function(){message.innerHTML = "";}, 5000);
     
+}
+
+function printuserinfo(email = null) {
+    const token = localStorage.getItem("token");
+    let serverfeedback;
+
+    if(email) { 
+        serverfeedback = serverstub.getUserDataByEmail(token, email);
+    }
+    else {
+        serverfeedback = serverstub.getUserDataByToken(token);
+    }
+
+    const userinfo = serverfeedback.data;
+
+    document.getElementById("username").innerText = userinfo.firstname;
+    document.getElementById("useremail").innerText = userinfo.email;
+    document.getElementById("userfullname").innerText = userinfo.firstname + " " + userinfo.familyname;
+    document.getElementById("usergender").innerText = userinfo.gender;
+    document.getElementById("usercity").innerText = userinfo.city;
+    document.getElementById("usercountry").innerText = userinfo.country;
+}
+
+function postmessage() {
+    const message = document.getElementById("postmessage").value.trim();
+    let em = document.getElementById("postem");
+
+    if (message === "") {
+        em.innerText = "You need to write something before posting";
+        return;
+    } 
+    else {
+        em.innerText = "";
+    }
+
+    token = localStorage.getItem("token");
+    postresult = serverstub.postMessage(token, message, null);
+
+    if (postresult.success) {
+        document.getElementById("postmessage").value = "";
+        loadwalloftext();
+    }
+    else {
+        em.innerText = "Failed: " + postresult.message;
+    }
+    
+
+}
+
+function loadwalloftext(email = null) {
+    const token = localStorage.getItem("token");
+    let serverfeedback;
+
+    if(email) {
+        serverfeedback = serverstub.getUserMessagesByEmail(token, email);
+    }
+    else {
+        serverfeedback = serverstub.getUserMessagesByToken(token);
+    }
+
+    const walloftext = document.getElementById("walloftext");
+    walloftext.innerHTML = "";
 
 
+    if(serverfeedback.success) {
+        const messages = serverfeedback.data;
+
+        messages.forEach(message => { 
+            const messageparagraph = document.createElement("p");
+            messageparagraph.textContent = `${message.writer}: ${message.content}`;
+            walloftext.appendChild(messageparagraph);
+        });
+    }
 
 
+}
 
-
-
-
+function searchuser () {
+    
 }
