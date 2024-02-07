@@ -138,7 +138,11 @@
                 <div id = "browsearea" class = "tabcontent">
                     <input type = "text" id = "browseemail" placeholder = "Insert user email">
                         <button onclick = "searchuser()">Search for a user</button>
-                        <div id = "browseresult"></div>
+                    <div id="browsepostarea">
+                        <textarea id="browsepostmessage" placeholder="Write your message"></textarea>
+                        <button onclick="postmessage(true)">Post Message</button>
+                        <div id="browsepostem" style="color: red"></div>
+                    </div>                                    
                 </div>
 
                 <div id = "accountarea" class = "tabcontent">

@@ -174,54 +174,69 @@ function changepassword() {
     
 }
 
-function printuserinfo(email = null) {
-    const token = localStorage.getItem("token");
-    let serverfeedback;
+function printuserinfo(userinfo, cid) {
 
-    if(email) { 
-        serverfeedback = serverstub.getUserDataByEmail(token, email);
-    }
-    else {
-        serverfeedback = serverstub.getUserDataByToken(token);
-    }
+let htmlcontent = 
+    `<h2>Profile information</h2>
+    <p>Email: <span>${userinfo.email}</span></p>
+    <p>Name: <span>${userinfo.firstname} ${userinfo.familyname}</span></p>
+    <p>Gender: <span>${userinfo.gender}</span></p>
+    <p>City: <span>${userinfo.city}</span></p>
+    <p>Country: <span>${userinfo.country}</span></p>`
+    ;
 
-    const userinfo = serverfeedback.data;
+    document.getElementById(cid).innerHTML = htmlcontent;
 
-    document.getElementById("username").innerText = userinfo.firstname;
-    document.getElementById("useremail").innerText = userinfo.email;
-    document.getElementById("userfullname").innerText = userinfo.firstname + " " + userinfo.familyname;
-    document.getElementById("usergender").innerText = userinfo.gender;
-    document.getElementById("usercity").innerText = userinfo.city;
-    document.getElementById("usercountry").innerText = userinfo.country;
 }
 
-function postmessage() {
-    const message = document.getElementById("postmessage").value.trim();
-    let em = document.getElementById("postem");
+function printusermessages(messages, cid) {
 
-    if (message === "") {
+    let htmlcontent = "<h2>User messages</h2>";
+
+    messages.forEach(message => {
+        htmlcontent += `<p>${message.writer}: ${message.content}</p>`;
+    });
+
+    document.getElementById(cid).innerHTML = htmlcontent;
+
+}
+
+function postmessage(frombrowse = false) {
+
+    const messageid = frombrowse ? "browsepostmessage" : "postmessage";
+    const message = document.getElementById(messageid).value.trim();
+    const emid = frombrowse ? "browsepostem" : "postem";
+    const em = document.getElementById(emid);
+
+    if(message === "") {
         em.innerText = "You need to write something before posting";
-        return;
-    } 
+    }
     else {
         em.innerText = "";
     }
 
-    token = localStorage.getItem("token");
-    postresult = serverstub.postMessage(token, message, null);
+    const token = localStorage.getItem("token");
+    const useremail = frombrowse ? document.getElementById("browseemail").value.trim() : null;
+    const postedmessage = serverstub.postMessage(token, message, useremail);
 
-    if (postresult.success) {
-        document.getElementById("postmessage").value = "";
-        loadwalloftext();
+    if (postedmessage.success) {
+        document.getElementById(messageid).value = "";
+
+        if(frombrowse) {
+            loadwalloftext(useremail, "browsewall");
+        }
+        else {
+            loadwalloftext(null, "walloftext")
+        }
     }
     else {
-        em.innerText = "Failed: " + postresult.message;
+        em.innerText = "Fail: " + postedmessage.message;
     }
-    
+
 
 }
 
-function loadwalloftext(email = null) {
+function loadwalloftext(email = null, cid = "walloftext") {
     const token = localStorage.getItem("token");
     let serverfeedback;
 
