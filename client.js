@@ -128,7 +128,15 @@ function showtab(specifictab) {
     }
 
     if(specifictab === "homearea") {
-        printuserinfo();
+        const token = localStorage.getItem("token");
+        const userinfo = serverstub.getUserDataByToken(token);
+
+        if(userinfo.success) {
+            printuserinfo(userinfo.data, "userinfo");
+        }
+        else {
+            console.log("Failed to load data for some reason");
+        }
         loadwalloftext();
     }
     
@@ -223,10 +231,10 @@ function postmessage(frombrowse = false) {
         document.getElementById(messageid).value = "";
 
         if(frombrowse) {
-            loadwalloftext(useremail, "browsewall");
+            loadwalloftext(useremail, "browsewalloftext");
         }
         else {
-            loadwalloftext(null, "walloftext")
+            loadwalloftext(null, "walloftext");
         }
     }
     else {
@@ -238,32 +246,44 @@ function postmessage(frombrowse = false) {
 
 function loadwalloftext(email = null, cid = "walloftext") {
     const token = localStorage.getItem("token");
-    let serverfeedback;
+    let serverfeedback = email ? serverstub.getUserMessagesByEmail(token, email) : serverstub.getUserMessagesByToken(token);
 
-    if(email) {
-        serverfeedback = serverstub.getUserMessagesByEmail(token, email);
+    if (serverfeedback.success) {
+        printusermessages(serverfeedback.data, cid);
     }
     else {
-        serverfeedback = serverstub.getUserMessagesByToken(token);
+        document.getElementById(cid).innerText = "Failed to print messages";
     }
-
-    const walloftext = document.getElementById("walloftext");
-    walloftext.innerHTML = "";
-
-
-    if(serverfeedback.success) {
-        const messages = serverfeedback.data;
-
-        messages.forEach(message => { 
-            const messageparagraph = document.createElement("p");
-            messageparagraph.textContent = `${message.writer}: ${message.content}`;
-            walloftext.appendChild(messageparagraph);
-        });
-    }
-
-
 }
 
 function searchuser () {
+    token = localStorage.getItem("token");
+    const email = document.getElementById("browseemail").value.trim();
     
+    if(email) {
+        const userinfo = serverstub.getUserDataByEmail(token, email);
+
+        if(userinfo.success) {
+            printuserinfo(userinfo.data, "browseuserinfo");
+            loadwalloftext(email, "browsewalloftext");
+        }
+        else {
+            document.getElementById("browseuserinfo").innerText = "User not found";
+        }
+
+    }
+    else {
+        document.getElementById("browseuserinfo").innerText = "Enter a valid email address";
+    }
+}
+
+function refreshbrowsewall() {
+    const email = document.getElementById("browseemail").value.trim();
+    
+    if(email) {
+        loadwalloftext(email, "browsewalloftext");
+    }
+    else {
+        console.log("Something went wrong in refreshbrowsewall");
+    }
 }

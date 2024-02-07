@@ -112,14 +112,7 @@
 
                 <div id = "homearea" class = "tabcontent">
                     <div id = "userinfoandwall">
-                        <div id = "infoarea">
-                            <h2>Hey there <span id = "username"></span>!</h2>
-                            <p>Email: <span id = "useremail"></span></p>
-                            <p>Full name: <span id = "userfullname"></span></p>
-                            <p>Gender: <span id = "usergender"></span></p>
-                            <p>City: <span id = "usercity"></span></p>
-                            <p>Country: <span id = "usercountry"></span></p>
-                        </div>    
+                        <div id = "userinfo"></div>    
                         
                         <div id = "walloftextarea">
                             <h3>Post a message here</h3>
@@ -127,21 +120,32 @@
                             <textarea id = "postmessage" placeholder = "Insert message here"></textarea>
                             <button id = "postbutton" onclick = "postmessage()">Post your message</button>
                         
-                            <h3>Wall of text</h3>
-                            <button onclick = 'loadwalloftext()'>Refresh</button>
+                            
                             <div id = "walloftext"></div>
+                            <button onclick = 'loadwalloftext()' class = "refreshbuttons">Refresh</button>
                         </div>    
                     </div>
 
                 </div>
 
                 <div id = "browsearea" class = "tabcontent">
-                    <input type = "text" id = "browseemail" placeholder = "Insert user email">
-                        <button onclick = "searchuser()">Search for a user</button>
-                    <div id="browsepostarea">
-                        <textarea id="browsepostmessage" placeholder="Write your message"></textarea>
-                        <button onclick="postmessage(true)">Post Message</button>
-                        <div id="browsepostem" style="color: red"></div>
+                    <div id = "searchuserarea">
+                        <input type = "text" id = "browseemail" placeholder = "Insert user email">
+                            <button onclick = "searchuser()">Search for a user</button>
+                    </div>
+                    <div id = "browseuserinfoandwall">
+                        <div id = "browseuserinfo"></div>
+
+                        <div id="browsepostarea">
+                            <h3>Post your message</h3>
+                            <textarea id="browsepostmessage" placeholder="Write your message"></textarea>
+                            <button onclick="postmessage(true)">Post Message</button>
+                            <div id="browsepostem" style="color: red"></div>
+
+                            
+                            <div id = "browsewalloftext"></div>
+                            <button onclick = 'refreshbrowsewall()' class = "refreshbuttons">Refresh</button>
+                        </div>
                     </div>                                    
                 </div>
 
