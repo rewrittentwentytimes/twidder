@@ -218,6 +218,7 @@ function postmessage(frombrowse = false) {
 
     if(message === "") {
         em.innerText = "You need to write something before posting";
+        return;
     }
     else {
         em.innerText = "";
@@ -260,20 +261,26 @@ function searchuser () {
     token = localStorage.getItem("token");
     const email = document.getElementById("browseemail").value.trim();
     
-    if(email) {
+    if(email && emailcheck(email)) {
         const userinfo = serverstub.getUserDataByEmail(token, email);
 
         if(userinfo.success) {
+            document.getElementById("browseuserinfo").style.display = "block";
+            document.getElementById("browsepostarea").style.display = "block";
             printuserinfo(userinfo.data, "browseuserinfo");
             loadwalloftext(email, "browsewalloftext");
         }
         else {
+            document.getElementById("browseuserinfo").style.display = "block";
+            document.getElementById("browsepostarea").style.display = "none";
             document.getElementById("browseuserinfo").innerText = "User not found";
         }
 
     }
     else {
+        document.getElementById("browseuserinfo").style.display = "block";
         document.getElementById("browseuserinfo").innerText = "Enter a valid email address";
+        document.getElementById("browsepostarea").style.display = "none";
     }
 }
 

@@ -202,3 +202,7 @@ body {
 .refreshbuttons {
     margin-top: 5px;
 }
+
+#browseuserinfo, #browsepostarea {
+    display: none;
+}
